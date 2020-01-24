@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 class Ticket(models.Model):
@@ -13,11 +15,26 @@ class Ticket(models.Model):
         (INVALID, 'Invalid')
     ]
     title = models.CharField(max_length=180)
-    date_Filed = models.DateTimeField('dateFiled', auto_now=True)
+    date_Filed = models.DateTimeField('dateFiled', default=timezone.now())
     description = models.CharField(max_length=300)
-    filed_By = models.CharField(max_length=50)
-    assigned_To = models.CharField(max_length=50)
-    completed_by = models.CharField(max_length=50)
+    filed_By = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='filed_By',
+        blank=True,
+        null=True,)
+    assigned_To = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='assigned_To',
+        blank=True,
+        null=True,)
+    completed_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='completed_by',
+        blank=True,
+        null=True)
     status = models.CharField(choices=CHOICES, max_length=11, default=NEW)
 
     def __str__(self):
