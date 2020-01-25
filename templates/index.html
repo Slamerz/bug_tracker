@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+<h1>New</h1>
+<br>
+{% if new  %}
+    <ul>
+        {% for ticket in new %}
+            <li>title: {{ ticket.title }}
+                <br>
+                date: {{ ticket.date_filed }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Current Tickets</p>
+{% endif %}
+<br>
+<br>
+<h1>In Progress</h1>
+<br>
+{% if in_progress  %}
+    <ul>
+        {% for ticket in in_progress %}
+            <li>title: {{ ticket.title }}
+                <br>
+                date: {{ ticket.date_filed }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Current Tickets</p>
+{% endif %}
+
+<br>
+<br>
+<h1>Completed</h1>
+<br>
+{% if done  %}
+    <ul>
+        {% for ticket in done %}
+            <li>title: {{ ticket.title }}
+                <br>
+                date: {{ ticket.date_filed }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Current Tickets</p>
+{% endif %}
+
+<br>
+<br>
+<h1>Invalid</h1>
+<br>
+{% if invalid  %}
+    <ul>
+        {% for ticket in invalid %}
+            <li>title: {{ ticket.title }}
+                <br>
+                date: {{ ticket.date_filed }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Current Tickets</p>
+{% endif %}
+</body>
+</html>
