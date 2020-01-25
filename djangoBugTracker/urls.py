@@ -19,5 +19,7 @@ from BugsBugsBugs import views
 
 urlpatterns = [
     path('', views.index, name='homepage'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logoutview, name='logout'),
     path('admin/', admin.site.urls, name='admin')
 ]
