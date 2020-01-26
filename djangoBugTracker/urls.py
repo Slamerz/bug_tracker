@@ -22,5 +22,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('createticket/', views.create_ticket_view, name='create'),
+    path('edit/<int:ticket_id>/', views.edit_ticket_view, name='edit'),
     path('admin/', admin.site.urls, name='admin')
 ]

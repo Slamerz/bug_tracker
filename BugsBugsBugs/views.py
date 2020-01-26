@@ -15,7 +15,6 @@ def index(request):
     done = Ticket.objects.filter(status='Done').order_by('date_Filed')
     invalid = Ticket.objects.filter(status='Invalid').order_by('date_Filed')
 
-    print(new)
     return render(request, 'index.html',
                   {
                       'new': new,
@@ -63,3 +62,23 @@ def create_ticket_view(request):
     form = NewTicketForm()
     return render(request, 'form.html', {'form': form})
 
+
+@login_required
+def edit_ticket_view(request, ticket_id):
+    instance = Ticket.objects.get(id=ticket_id)
+    if request.method == 'POST':
+        form = NewTicketForm(request.POST, initial={
+            'title': instance.title,
+            'description': instance.description
+        })
+        if form.is_valid():
+
+            instance.title = form.cleaned_data['title']
+            instance.description = form.cleaned_data['description']
+            instance.save()
+            return HttpResponseRedirect(reverse('homepage'))
+    form = NewTicketForm(initial={
+        'title': instance.title,
+        'description': instance.description
+    })
+    return render(request, 'form.html', {'form': form})
