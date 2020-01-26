@@ -89,3 +89,33 @@ def ticket_details_view(request, ticket_id):
     data = Ticket.objects.get(id=ticket_id)
     print(data)
     return render(request, 'details.html', {'ticket': data})
+
+
+@login_required
+def assign_ticket_view(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id)
+    ticket.status = 'In Progress'
+    ticket.assigned_To = request.user
+    ticket.completed_by = None
+    ticket.save()
+    return HttpResponseRedirect(reverse('details', args=(ticket.id,)))
+
+
+@login_required
+def complete_ticket_view(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id)
+    ticket.status = 'Done'
+    ticket.completed_by = ticket.assigned_To
+    ticket.assigned_To = None
+    ticket.save()
+    return HttpResponseRedirect(reverse('details', args=(ticket.id,)))
+
+
+@login_required
+def invalid_ticket_view(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id)
+    ticket.status = 'Invalid'
+    ticket.completed_by = None
+    ticket.assigned_To = None
+    ticket.save()
+    return HttpResponseRedirect(reverse('details', args=(ticket.id,)))

@@ -24,5 +24,8 @@ urlpatterns = [
     path('createticket/', views.create_ticket_view, name='create'),
     path('edit/<int:ticket_id>/', views.edit_ticket_view, name='edit'),
     path('ticket/<int:ticket_id>/', views.ticket_details_view, name='details'),
+    path('ticket/<int:ticket_id>/assign', views.assign_ticket_view, name='assign'),
+    path('ticket/<int:ticket_id>/complete', views.complete_ticket_view, name='complete'),
+    path('ticket/<int:ticket_id>/invalid', views.invalid_ticket_view, name='invalid'),
     path('admin/', admin.site.urls, name='admin')
 ]

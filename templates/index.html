@@ -82,9 +82,16 @@
 {% if invalid  %}
     <ul>
         {% for ticket in invalid %}
-            <li>title: {{ ticket.title }}
+            <h3><a href="{% url 'details' ticket.id %}" >{{ ticket.title }}</a></h3>
+                date created: {{ ticket.date_Filed }}
                 <br>
-                date: {{ ticket.date_filed }}</li>
+                <p>
+                Description: {{ ticket.description }}
+                </p>
+                <br>
+                Author: {{ ticket.filed_By }}
+            | Assigned to: {{ticket.assigned_To}}
+            | Completed by: {{ ticket.completed_by }}
         {% endfor %}
     </ul>
 {% else %}

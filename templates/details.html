@@ -18,11 +18,17 @@ Author: {{ ticket.filed_By }}
 {% if ticket.assigned_To and not ticket.completed_by%}
     Assigned to: {{ticket.assigned_To}}
     <br>
-    {% else %}
+    {% elif not ticket.completed_by %}
     Assigned to: None
 {% endif %}
 {% if ticket.completed_by %}
     Completed by: {{ ticket.completed_by }}
 {% endif %}
+<br>
+<a href="{% url 'assign' ticket.id %}"><button>Assign to Self</button></a>
+<br>
+<a href="{% url 'complete' ticket.id %}"><button>Complete</button></a>
+<br>
+<a href="{% url 'invalid' ticket.id %}"><button>Invalid</button></a>
 </body>
 </html>
