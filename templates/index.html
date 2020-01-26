@@ -16,7 +16,7 @@
     <ul>
         {% for ticket in new %}
             <li>
-                <h3>{{ ticket.title }}</h3>
+                <h3><a href="{% url 'details' ticket.id %}" >{{ ticket.title }}</a></h3>
                 date created: {{ ticket.date_Filed }}
                 <br>
                 <p>
@@ -37,14 +37,15 @@
 {% if in_progress  %}
     <ul>
         {% for ticket in in_progress %}
-            <h3>{{ ticket.title }}</h3>
+            <h3><a href="{% url 'details' ticket.id %}" >{{ ticket.title }}</a></h3>
                 date created: {{ ticket.date_Filed }}
                 <br>
                 <p>
                 Description: {{ ticket.description }}
                 </p>
                 <br>
-                Author: {{ ticket.filed_By }} | Assigned to: {{ticket.assigned_To}}
+                Author: {{ ticket.filed_By }}
+            | Assigned to: {{ticket.assigned_To}}
         {% endfor %}
     </ul>
 {% else %}
@@ -58,14 +59,16 @@
 {% if done  %}
     <ul>
         {% for ticket in done %}
-            <h3>{{ ticket.title }}</h3>
+            <h3><a href="{% url 'details' ticket.id %}" >{{ ticket.title }}</a></h3>
                 date created: {{ ticket.date_Filed }}
                 <br>
                 <p>
                 Description: {{ ticket.description }}
                 </p>
                 <br>
-                Author: {{ ticket.filed_By }} | Assigned to: {{ticket.assigned_To}} | Completed by: {{ ticket.completed_by }}
+                Author: {{ ticket.filed_By }}
+            | Assigned to: {{ticket.assigned_To}}
+            | Completed by: {{ ticket.completed_by }}
         {% endfor %}
     </ul>
 {% else %}

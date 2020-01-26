@@ -82,3 +82,10 @@ def edit_ticket_view(request, ticket_id):
         'description': instance.description
     })
     return render(request, 'form.html', {'form': form})
+
+
+@login_required
+def ticket_details_view(request, ticket_id):
+    data = Ticket.objects.get(id=ticket_id)
+    print(data)
+    return render(request, 'details.html', {'ticket': data})

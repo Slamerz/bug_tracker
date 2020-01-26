@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>{{ ticket.title }}</h2>
+<h3>Status: {{ ticket.status}}</h3>
+date created: {{ ticket.date_Filed }}
+<br>
+<p>
+Description: {{ ticket.description }}
+</p>
+<br>
+Author: {{ ticket.filed_By }}
+<br>
+{% if ticket.assigned_To and not ticket.completed_by%}
+    Assigned to: {{ticket.assigned_To}}
+    <br>
+    {% else %}
+    Assigned to: None
+{% endif %}
+{% if ticket.completed_by %}
+    Completed by: {{ ticket.completed_by }}
+{% endif %}
+</body>
+</html>
