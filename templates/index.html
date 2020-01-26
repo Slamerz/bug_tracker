@@ -5,14 +5,26 @@
     <title>Homepage</title>
 </head>
 <body>
+
+<a href="{% url 'logout' %}"><button>Logout</button></a>
+<br>
+<br>
+<a href="{% url 'create' %}"><button>Submit Ticket</button></a>
 <h1>New</h1>
 <br>
 {% if new  %}
     <ul>
         {% for ticket in new %}
-            <li>title: {{ ticket.title }}
+            <li>
+                <h3>{{ ticket.title }}</h3>
+                date created: {{ ticket.date_Filed }}
                 <br>
-                date: {{ ticket.date_filed }}</li>
+                <p>
+                Description: {{ ticket.description }}
+                </p>
+                <br>
+                Author: {{ ticket.filed_By }} | Assigned to: Unassigned
+            </li>
         {% endfor %}
     </ul>
 {% else %}
@@ -25,9 +37,14 @@
 {% if in_progress  %}
     <ul>
         {% for ticket in in_progress %}
-            <li>title: {{ ticket.title }}
+            <h3>{{ ticket.title }}</h3>
+                date created: {{ ticket.date_Filed }}
                 <br>
-                date: {{ ticket.date_filed }}</li>
+                <p>
+                Description: {{ ticket.description }}
+                </p>
+                <br>
+                Author: {{ ticket.filed_By }} | Assigned to: {{ticket.assigned_To}}
         {% endfor %}
     </ul>
 {% else %}
@@ -41,9 +58,14 @@
 {% if done  %}
     <ul>
         {% for ticket in done %}
-            <li>title: {{ ticket.title }}
+            <h3>{{ ticket.title }}</h3>
+                date created: {{ ticket.date_Filed }}
                 <br>
-                date: {{ ticket.date_filed }}</li>
+                <p>
+                Description: {{ ticket.description }}
+                </p>
+                <br>
+                Author: {{ ticket.filed_By }} | Assigned to: {{ticket.assigned_To}} | Completed by: {{ ticket.completed_by }}
         {% endfor %}
     </ul>
 {% else %}

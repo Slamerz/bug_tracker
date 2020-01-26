@@ -20,6 +20,7 @@ from BugsBugsBugs import views
 urlpatterns = [
     path('', views.index, name='homepage'),
     path('login/', views.login_view, name='login'),
-    path('logout/', views.logoutview, name='logout'),
+    path('logout/', views.logout_view, name='logout'),
+    path('createticket/', views.create_ticket_view, name='create'),
     path('admin/', admin.site.urls, name='admin')
 ]
