@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
@@ -7,6 +8,7 @@ from BugsBugsBugs.forms import LoginForm, NewTicketForm
 from BugsBugsBugs.models import Ticket
 from django.shortcuts import render
 
+generic_form = 'form.html'
 
 @login_required
 def index(request):
@@ -39,7 +41,7 @@ def login_view(request):
                     request.GET.get('next', reverse('homepage'))
                 )
     form = LoginForm()
-    return render(request, 'form.html', {'form': form})
+    return render(request, generic_form, {'form': form})
 
 
 def logout_view(request):
@@ -60,7 +62,7 @@ def create_ticket_view(request):
             )
             return HttpResponseRedirect(reverse('homepage'))
     form = NewTicketForm()
-    return render(request, 'form.html', {'form': form})
+    return render(request, generic_form, {'form': form})
 
 
 @login_required
@@ -81,7 +83,7 @@ def edit_ticket_view(request, ticket_id):
         'title': instance.title,
         'description': instance.description
     })
-    return render(request, 'form.html', {'form': form})
+    return render(request, generic_form, {'form': form})
 
 
 @login_required
@@ -119,3 +121,17 @@ def invalid_ticket_view(request, ticket_id):
     ticket.assigned_To = None
     ticket.save()
     return HttpResponseRedirect(reverse('details', args=(ticket.id,)))
+
+
+@login_required
+def user_view(request, user_id):
+    user = User.objects.get(pk=user_id)
+    filed = Ticket.objects.filter(filed_By=user)
+    assigned = Ticket.objects.filter(assigned_To=user)
+    completed = Ticket.objects.filter(completed_by=user)
+
+    return render(request, 'user.html', {
+        'user': user,
+        'filed': filed,
+        'assigned': assigned,
+        'completed': completed})

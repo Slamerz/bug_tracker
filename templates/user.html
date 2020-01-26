@@ -2,9 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>{{ user.username }}</title>
 </head>
 <body>
-$END$
+<a href="{% url 'homepage' %}"><button>Home</button></a>
+<br>
+<h1>Filed</h1>
+<br>
+{% if filed  %}
+    <ul>
+        {% for ticket in filed %}
+            <h3><a href="{% url 'details' ticket.id %}" >{{ ticket.title }}</a></h3>
+            <h4>Status: {{ ticket.status }}</h4>
+                date created: {{ ticket.date_Filed }}
+                <br>
+                <p>
+                Description: {{ ticket.description }}
+                </p>
+                <br>
+             Assigned to: {{ticket.assigned_To}} | Completed By: {{ ticket.completed_by }}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Tickets Filed</p>
+{% endif %}
+    <h1>Assigned</h1>
+{% if assigned  %}
+    <ul>
+        {% for ticket in assigned %}
+            <h3><a href="{% url 'details' ticket.id %}" >{{ ticket.title }}</a></h3>
+                date created: {{ ticket.date_Filed }}
+                <br>
+                <p>
+                Description: {{ ticket.description }}
+                </p>
+                <br>
+                Author: {{ ticket.filed_By }}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Assigned Tickets</p>
+{% endif %}
+<br>
+<br>
+<h1>Completed</h1>
+<br>
+{% if completed  %}
+    <ul>
+        {% for ticket in completed %}
+            <h3><a href="{% url 'details' ticket.id %}" >{{ ticket.title }}</a></h3>
+                date created: {{ ticket.date_Filed }}
+                <br>
+                <p>
+                Description: {{ ticket.description }}
+                </p>
+                <br>
+                Author: {{ ticket.filed_By }}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Completed Tickets</p>
+{% endif %}
+
 </body>
 </html>
